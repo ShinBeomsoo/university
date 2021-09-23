@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>201801776 롤링페이퍼</title>
+</head>
+<body>
+<h1>롤링페이퍼</h1>
+<form method="post">
+    <textarea cols="50" rows="4" id="rolling-paper" placeholder="롤링페이퍼를 작성해주세요 !"></textarea><br/>
+    <input type="submit" class="btn" onclick="button()" value="범수에게 롤링페이퍼 전달하기"/>
+</form>
+</body>
+<!-- TODO 롤링페이퍼 버튼 js 확인 용 -->
+<script>
+  let button = () => {
+    let text = document.getElementById('rolling-paper').value;
+    console.log(text);
+  }
+</script>
+</html>
