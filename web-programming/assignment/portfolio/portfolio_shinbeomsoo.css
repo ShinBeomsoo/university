@@ -8,8 +8,8 @@ body {
     color: #333;
 }
 
-html, body, #wrapper #main {
-    height: 100%;
+#wrapper {
+    scroll-behavior: smooth;
 }
 
 .home .pageheader {
