@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>201801776 롤링페이퍼</title>
+    <link rel="stylesheet" type="text/css" href="./rolling_paper.css">
 </head>
 <body>
 <h1>롤링페이퍼</h1>
 <form method="post">
-    나를 알게 된 경위: <input type="text" list="knowme"><br>
-    <datalist id="knowme">
-        <option value="초등학교"/>
-        <option value="중학교"/>
-        <option value="고등학교"/>
-        <option value="대학교"/>
-        <option value="회사"/>
-    </datalist>
-    <textarea cols="50" rows="4" id="rolling-paper" placeholder="롤링페이퍼를 작성해주세요 !"></textarea><br/>
+    <div style="margin-bottom: 10px">
+        나를 알게 된 경위: <input type="text" list="knowme"><br>
+        <datalist id="knowme">
+            <option value="초등학교"/>
+            <option value="중학교"/>
+            <option value="고등학교"/>
+            <option value="대학교"/>
+            <option value="회사"/>
+        </datalist>
+    </div>
+    <textarea cols="50" rows="4" id="rolling-paper" class="rolling-paper" placeholder="롤링페이퍼를 작성해주세요 !"></textarea><br/>
     <input type="submit" class="btn" onclick="button()" value="범수에게 롤링페이퍼 전달하기"/>
 </form>
 </body>
