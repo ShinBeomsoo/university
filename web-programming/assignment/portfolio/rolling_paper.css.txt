@@ -1,0 +1,17 @@
+.knowme { margin-bottom: 20px;
+}
+
+.btn {
+    width: 400px;
+    height: 32px;
+    margin-top: 30px;
+    background: linear-gradient(to right, #ffffff 0%, #964b00 100%);
+}
+
+.btn:hover {
+    background: #ffffff;
+}
+
+.rolling-paper {
+    width: 400px;
+}
