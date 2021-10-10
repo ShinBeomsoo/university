@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>201801776</title>
+</head>
+<body>
+<h2>일반계산기</h2>
+<table style="width: 400px; height: 400px; text-align: center;" border="1">
+    <tr>
+        <td colspan="5">
+            <input style="width: 400px; height: 100%;" id="result">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <input style="width: 400px; height: 100%;" id="display">
+        </td>
+    </tr>
+    <tr>
+        <th onclick="calculate('7', null)">7</th>
+        <th onclick="calculate('8', null)">8</th>
+        <th onclick="calculate('9', null)">9</th>
+        <th onclick="calculate(null, '/')">÷</th>
+        <td onclick="calculate(null, 'ce')" rowspan="2">CE</td>
+    </tr>
+    <tr>
+        <th onclick="calculate('4', null)">4</th>
+        <th onclick="calculate('5', null)">5</th>
+        <th onclick="calculate('6', null)">6</th>
+        <th onclick="calculate(null, '*')">X</th>
+    </tr>
+    <tr>
+        <th onclick="calculate('1', null)">1</th>
+        <th onclick="calculate('2', null)">2</th>
+        <th onclick="calculate('3', null)">3</th>
+        <th onclick="calculate(null, '-')">-</th>
+        <th onclick="calculate(null, '%')">%</th>
+    </tr>
+    <tr>
+        <td onclick="calculate('0', null)" colspan="3">0</td>
+        <th onclick="calculate(null, '+')">+</th>
+        <th onclick="calculate(null, '=')">=</th>
+    </tr>
+</table>
+<script>
+  let result = 0;
+  const operator_action = {
+    "=": calculate_result, "ce": clear,
+  };
+
+  function calculate(char, operator) {
+    let display_value = document.getElementById('display');
+
+    if (operator === '=' || operator === 'ce') {
+      operator_action[operator]();
+    } else if (operator != null) {
+      display_value.value = display_value.value + operator;
+    } else {
+      display_value.value = display_value.value + char;
+    }
+  }
+
+  function clear() {
+    let display_value = document.getElementById('display');
+    display_value.value = null;
+    result = 0;
+  }
+
+  function calculate_result() {
+    let display_equation = document.getElementById('display');
+    let display_result = document.getElementById('result');
+    result = eval(display_equation.value);
+    display_result.value = result;
+  }
+</script>
+</body>
+</html>
