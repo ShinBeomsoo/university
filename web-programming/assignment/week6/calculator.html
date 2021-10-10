@@ -3,44 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>201801776</title>
+    <link rel="stylesheet" type="text/css" href="./calculator.css">
 </head>
 <body>
-<h2>일반계산기</h2>
-<table style="width: 400px; height: 400px; text-align: center;" border="1">
+<table class="calculator" style="width: 400px; height: 400px; text-align: center;" border="1">
+    <caption class="calculator-cation">일반계산기</caption>
     <tr>
         <td colspan="5">
-            <input style="width: 400px; height: 100%;" id="result">
+            <input style="width: 400px; height: 100%;" id="input-result">
         </td>
     </tr>
     <tr>
         <td colspan="5">
-            <input style="width: 400px; height: 100%;" id="display">
+            <input style="width: 400px; height: 100%;" id="input-display">
         </td>
     </tr>
     <tr>
-        <th onclick="calculate('7', null)">7</th>
-        <th onclick="calculate('8', null)">8</th>
-        <th onclick="calculate('9', null)">9</th>
-        <th onclick="calculate(null, '/')">÷</th>
-        <td onclick="calculate(null, 'ce')" rowspan="2">CE</td>
+        <th onclick="calculate('7', null)" class="number">7</th>
+        <th onclick="calculate('8', null)" class="number">8</th>
+        <th onclick="calculate('9', null)" class="number">9</th>
+        <th onclick="calculate(null, '/')" class="operator">÷</th>
+        <td onclick="calculate(null, 'ce')" rowspan="2" class="operator">CE</td>
     </tr>
     <tr>
-        <th onclick="calculate('4', null)">4</th>
-        <th onclick="calculate('5', null)">5</th>
-        <th onclick="calculate('6', null)">6</th>
-        <th onclick="calculate(null, '*')">X</th>
+        <th onclick="calculate('4', null)" class="number">4</th>
+        <th onclick="calculate('5', null)" class="number">5</th>
+        <th onclick="calculate('6', null)" class="number">6</th>
+        <th onclick="calculate(null, '*')" class="operator">X</th>
     </tr>
     <tr>
-        <th onclick="calculate('1', null)">1</th>
-        <th onclick="calculate('2', null)">2</th>
-        <th onclick="calculate('3', null)">3</th>
-        <th onclick="calculate(null, '-')">-</th>
-        <th onclick="calculate(null, '%')">%</th>
+        <th onclick="calculate('1', null)" class="number">1</th>
+        <th onclick="calculate('2', null)" class="number">2</th>
+        <th onclick="calculate('3', null)" class="number">3</th>
+        <th onclick="calculate(null, '-')" class="operator">-</th>
+        <th onclick="calculate(null, '%')" class="operator">%</th>
     </tr>
     <tr>
-        <td onclick="calculate('0', null)" colspan="3">0</td>
-        <th onclick="calculate(null, '+')">+</th>
-        <th onclick="calculate(null, '=')">=</th>
+        <td onclick="calculate('0', null)" colspan="3" class="number">0</td>
+        <th onclick="calculate(null, '+')" class="operator">+</th>
+        <th onclick="calculate(null, '=')" class="operator">=</th>
     </tr>
 </table>
 <script>
@@ -50,7 +51,7 @@
   };
 
   function calculate(char, operator) {
-    let display_value = document.getElementById('display');
+    let display_value = document.getElementById('input-display');
 
     if (operator === '=' || operator === 'ce') {
       operator_action[operator]();
@@ -62,14 +63,16 @@
   }
 
   function clear() {
-    let display_value = document.getElementById('display');
+    let display_value = document.getElementById('input-display');
+    let result_value = document.getElementById('input-result');
     display_value.value = null;
+    result_value.value = null;
     result = 0;
   }
 
   function calculate_result() {
-    let display_equation = document.getElementById('display');
-    let display_result = document.getElementById('result');
+    let display_equation = document.getElementById('input-display');
+    let display_result = document.getElementById('input-result');
     result = eval(display_equation.value);
     display_result.value = result;
   }

@@ -1,0 +1,27 @@
+.calculator {
+    background-color: #050816;
+    border-radius: 5px;
+}
+
+#input-display {
+}
+
+#input-result {
+}
+
+.calculator-cation {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.number {
+    color: #ffffff;
+    background-color: #14232B;
+    border-radius: 50%;
+}
+
+.operator {
+    color: #ffffff;
+    background-color: #F4B72B;
+    border-radius: 50%;
+}
