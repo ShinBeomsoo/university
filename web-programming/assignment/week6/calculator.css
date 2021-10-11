@@ -3,10 +3,18 @@
     border-radius: 5px;
 }
 
-#input-display {
+#input-result {
+    font-size: 30px;
+    background-color: #ffffff;
+    color: #000;
+    margin: 0px;
+    padding: 0px;
+    text-align: left;
+    vertical-align: middle;
 }
 
-#input-result {
+#input-display {
+    font-size: 18px;
 }
 
 .calculator-cation {

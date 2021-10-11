@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>201801776</title>
+    <link rel="stylesheet" type="text/css" href="./playlist.css">
 </head>
 <body>
-<input>
-<button>노래추가</button>
+<section class="input-section">
+    <label>
+        <input placeholder="노래 제목 및 가수" id="input">
+    </label>
+    <button id="button">노래추가</button>
+</section>
+<section class="show-section">
+    <ul id="list">
+        <li class="item">If I die tomorrow - 빈지노</li>
+        <li class="item">always awake - 빈지노</li>
+        <li class="item">상사화 - 안예은</li>
+        <li class="item">Autumn Breeze - JIDA</li>
+        <li class="item">또 싸워 - 에픽하이</li>
+    </ul>
+</section>
+<script>
+  let button = document.getElementById('button');
+  let input = document.getElementById('input');
+  let list = document.getElementById('list');
+  button.addEventListener('click', clickButton);
+
+  function clickButton() {
+    let temp = document.createElement('li');
+    temp.className = "item";
+    temp.innerHTML = input.value;
+    list.appendChild(temp);
+  }
+</script>
 </body>
 </html>

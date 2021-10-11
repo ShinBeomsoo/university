@@ -7,13 +7,13 @@
 </head>
 <body>
 <table class="calculator" style="width: 400px; height: 400px; text-align: center;" border="1">
-    <caption class="calculator-cation">일반계산기</caption>
-    <tr>
+    <caption class="calculator-cation">계산기</caption>
+    <tr style="height: 50px">
         <td colspan="5">
-            <input style="width: 400px; height: 100%;" id="input-result">
+            <p style="height: 100%;" id="input-result"></p>
         </td>
     </tr>
-    <tr>
+    <tr style="height: 50px">
         <td colspan="5">
             <input style="width: 400px; height: 100%;" id="input-display">
         </td>
@@ -64,17 +64,18 @@
 
   function clear() {
     let display_value = document.getElementById('input-display');
-    let result_value = document.getElementById('input-result');
     display_value.value = null;
-    result_value.value = null;
+    let result_value = document.getElementById('input-result');
+    result_value.innerHTML = null;
     result = 0;
   }
 
   function calculate_result() {
+    console.log("clear");
     let display_equation = document.getElementById('input-display');
     let display_result = document.getElementById('input-result');
     result = eval(display_equation.value);
-    display_result.value = result;
+    display_result.innerHTML = result;
   }
 </script>
 </body>
