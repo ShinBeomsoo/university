@@ -19,29 +19,30 @@
         </td>
     </tr>
     <tr>
-        <th onclick="calculate('7', null)" class="number">7</th>
-        <th onclick="calculate('8', null)" class="number">8</th>
-        <th onclick="calculate('9', null)" class="number">9</th>
-        <th onclick="calculate(null, '/')" class="operator">÷</th>
-        <td onclick="calculate(null, 'ce')" rowspan="2" class="operator">CE</td>
+        <th onclick="send('7')" class="number">7</th>
+        <th onclick="send('8')" class="number">8</th>
+        <th onclick="send('9')" class="number">9</th>
+        <th onclick="send('/')" class="operator">÷</th>
+        <td onclick="send('ce')" rowspan="2" class="operator">CE</td>
     </tr>
     <tr>
-        <th onclick="calculate('4', null)" class="number">4</th>
-        <th onclick="calculate('5', null)" class="number">5</th>
-        <th onclick="calculate('6', null)" class="number">6</th>
-        <th onclick="calculate(null, '*')" class="operator">X</th>
+        <th onclick="send('4')" class="number">4</th>
+        <th onclick="send('5')" class="number">5</th>
+        <th onclick="send('6')" class="number">6</th>
+        <th onclick="send('*')" class="operator">X</th>
     </tr>
     <tr>
-        <th onclick="calculate('1', null)" class="number">1</th>
-        <th onclick="calculate('2', null)" class="number">2</th>
-        <th onclick="calculate('3', null)" class="number">3</th>
-        <th onclick="calculate(null, '-')" class="operator">-</th>
-        <th onclick="calculate(null, '%')" class="operator">%</th>
+        <th onclick="send('1')" class="number">1</th>
+        <th onclick="send('2')" class="number">2</th>
+        <th onclick="send('3')" class="number">3</th>
+        <th onclick="send('-')" class="operator">-</th>
+        <th onclick="send('%')" class="operator">%</th>
     </tr>
     <tr>
-        <td onclick="calculate('0', null)" colspan="3" class="number">0</td>
-        <th onclick="calculate(null, '+')" class="operator">+</th>
-        <th onclick="calculate(null, '=')" class="operator">=</th>
+        <td onclick="send('0')" colspan="2" class="number">0</td>
+        <td onclick="send('.')" class="number">.</td>
+        <th onclick="send('+')" class="operator">+</th>
+        <th onclick="send('=')" class="operator">=</th>
     </tr>
 </table>
 <script>
@@ -50,13 +51,11 @@
     "=": calculate_result, "ce": clear,
   };
 
-  function calculate(char, operator) {
+  function send(char) {
     let display_value = document.getElementById('input-display');
 
-    if (operator === '=' || operator === 'ce') {
-      operator_action[operator]();
-    } else if (operator != null) {
-      display_value.value = display_value.value + operator;
+    if (char === '=' || char === 'ce') {
+      operator_action[char]();
     } else {
       display_value.value = display_value.value + char;
     }
