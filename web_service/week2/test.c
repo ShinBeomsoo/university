@@ -1,41 +1,15 @@
 #include <stdio.h>
 int main(){
-FILE *f1, *f2;
-char c;
-// echo File : a.txt
-printf("File : a.txt\n");
-
-// cat a.txt
-f1 = fopen("a.txt", "r");
-while((c = getc(f1)) != EOF)
-    printf("%c", c);
-fclose(f1);
-
-// echo ----- end of a.txt
-printf("----- end of a.txt\n");
-
-// echo Copy a.txt to b.txt
-printf("Copy a.txt to b.txt\n");
-
-// cat a.txt > b.txt
-f1 = fopen("a.txt", "r");
-f2 = fopen("b.txt", "w");
-while((c = getc(f1)) != EOF)
-    fputc((int)c,f2);
-fclose(f2);
-fclose(f1);
-
-// echo File: b.txt
-printf("File: b.txt\n");
-
-// cat b.txt
-f1 = fopen("b.txt", "r");
-while((c = getc(f1)) != EOF)
-    printf("%c", c);
-fclose(f1);
-
-// echo ----- end of b.txt
-printf("----- end of b.txt\n");
-
-return 0;
+    int count = 2;
+    int hap = 0;
+    switch (++count) {
+        case 1: hap = hap + count++;
+        case 2: hap = hap + count++;
+        case 3: hap = hap + count++;
+        case 4: hap = hap + count++;
+        case 5: hap = hap + count++;
+    }
+    printf("hap의 값: %d \n", hap);
+    return 0;
 }
+
