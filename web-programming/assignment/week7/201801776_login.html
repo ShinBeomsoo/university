@@ -21,7 +21,7 @@
 </form>
 </body>
 <script>
-  let webworker;
+  let webWorker;
   const maxNickname = 16;
   const minNickname = 4;
   const minPassword = 8;
@@ -42,7 +42,7 @@
   let checkNickname = (nickname) => {
     let checkNicknameEle = document.getElementById("check-nickname");
     if (nickname === "") {
-      checkNicknameEle.innerText = "닉네임을 입력해주세요.";
+      checkNicknameWorker("닉네임을 입력해주세요.");
       return false;
     }
     if (nickname.length < minNickname) {
@@ -59,7 +59,7 @@
   let checkPassword = (pw) => {
     let checkPasswordEle = document.getElementById("check-password");
     if (pw === "") {
-      checkPasswordEle.innerText = "패스워드를 입력해주세요.";
+      checkWorker("패스워드를 입력해주세요.");
       return false;
     }
     if (pw.length < minPassword) {
@@ -78,16 +78,31 @@
     return true;
   };
 
-  function startWorker() {
-    if(typeof(Worker) !== "undefined") {		// web worker 지원 여부 확인
-      if(typeof(webworker) == "undefined") {	// web worker 객체 생성
-        webworker = new Worker("web_worker.js");
-      }
-      webworker.onmessage = function(event) {	// web worker 객체와의 연결
-        document.getElementById("result").innerHTML = event.data;
+  function checkWorker(str) {
+    if (typeof (Worker) !== "undefined") {		// web worker 지원 여부 확인
+      webWorker = new Worker("worker.js");
+      webWorker.onmessage = function (event) {	// web worker 객체와의 연결
+        if (event.data === "") {
+          document.getElementById("check-password").innerHTML = str;
+        }
+        webWorker = undefined;
       };
     } else {
-      document.getElementById("result").innerHTML = "이 문장은 사용자의 웹 브라우저가 Web Worker API를 지원하지 않을 때 나타납니다!";
+      alert("해당 브라우저는 현재 사이트를 이용할 수 없습니다. 브라우저를 업데이트 해주세요.");
+    }
+  }
+
+  function checkNicknameWorker(str) {
+    if (typeof (Worker) !== "undefined") {		// web worker 지원 여부 확인
+      webWorker = new Worker("nickname_worker.js");
+      webWorker.onmessage = function (event) {	// web worker 객체와의 연결
+        if (event.data === "") {
+          document.getElementById("check-nickname").innerHTML = str;
+        }
+        webWorker = undefined;
+      };
+    } else {
+      alert("해당 브라우저는 현재 사이트를 이용할 수 없습니다. 브라우저를 업데이트 해주세요.");
     }
   }
 </script>
