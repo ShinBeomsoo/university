@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>201801776</title>
-<!--    <link rel="stylesheet" type="text/css" href="./playlist.css">-->
+    <link rel="stylesheet" type="text/css" href="./playlist.css">
 </head>
 <body>
 <section class="input-section">
@@ -14,11 +14,21 @@
 </section>
 <section class="show-section">
     <ul id="list">
-        <li class="item" onclick="remove(this.id)" id="song-1">If I die tomorrow - 빈지노</li>
-        <li class="item" onclick="remove(this.id)" id="song-2">always awake - 빈지노</li>
-        <li class="item" onclick="remove(this.id)" id="song-3">상사화 - 안예은</li>
-        <li class="item" onclick="remove(this.id)" id="song-4">Autumn Breeze - JIDA</li>
-        <li class="item" onclick="remove(this.id)" id="song-5">또 싸워 - 에픽하이</li>
+        <li class="item" id="song-1">If I die tomorrow - 빈지노
+            <button onclick="remove(this.id)" id="button-1">삭제</button>
+        </li>
+        <li class="item" id="song-2">always awake - 빈지노
+            <button onclick="remove(this.id)" id="button-2">삭제</button>
+        </li>
+        <li class="item" id="song-3">상사화 - 안예은
+            <button onclick="remove(this.id)" id="button-3">삭제</button>
+        </li>
+        <li class="item" id="song-4">Autumn Breeze - JIDA
+            <button onclick="remove(this.id)" id="button-4">삭제</button>
+        </li>
+        <li class="item" id="song-5">또 싸워 - 에픽하이
+            <button onclick="remove(this.id)" id="button-5">삭제</button>
+        </li>
     </ul>
 </section>
 <script>
@@ -32,22 +42,32 @@
     let liItem = document.createElement('li');
     liItem.className = "item";
     liItem.id = `song-${id_count}`;
-    liItem.onclick = function () {
+    liItem.innerHTML = input.value;
+
+    let liButton = document.createElement('button');
+    liButton.id = `button-${id_count}`;
+    liButton.innerHTML = "삭제";
+    liButton.onclick = function () {
+      let number = this.id.split("-")[1];
       if (confirm("정말 삭제하시겠습니까??") === true) {    //확인
         document.getElementById(this.id).remove();
+        document.getElementById(`song-${number}`).remove();
       } else {   //취소
         return false;
       }
     };
-    liItem.innerHTML = input.value;
+
+    liItem.appendChild(liButton);
     list.appendChild(liItem);
 
     id_count += 1;
   }
 
   function remove(id) {
+    let number = id.split("-")[1];
     if (confirm("정말 삭제하시겠습니까??") === true) {    //확인
       document.getElementById(id).remove();
+      document.getElementById(`song-${number}`).remove();
     } else {   //취소
       return false;
     }
