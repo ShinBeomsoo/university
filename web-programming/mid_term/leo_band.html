@@ -125,28 +125,44 @@
        src="https://web-programming-mid-term-sound.s3.ap-northeast-2.amazonaws.com/drum-kit/tink.wav"></audio>
 
 <script>
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
     e.target.classList.remove('playing');
   }
 
   function playSound(e) {
+
     let audio;
     let key;
+
+    function _playSound() {
+      if (!audio) return;
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
+    }
 
     if (typeof (e) === "object") {
       audio = document.querySelector(`audio[data-key="${e.which}"]`);
       key = document.querySelector(`div[data-key="${e.which}"]`);
-    } else {
+      _playSound();
+    } else if (typeof (e) === "string" && e.length === 1) {
       e = e.toUpperCase();
       audio = document.querySelector(`audio[data-key="${e.charCodeAt(0)}"]`);
       key = document.querySelector(`div[data-key="${e.charCodeAt(0)}"]`);
+      _playSound();
+    } else {
+      e = e.toUpperCase().split('');
+      e.forEach((note) => {
+        audio = document.querySelector(`audio[data-key="${note.charCodeAt(0)}"]`);
+        key = document.querySelector(`div[data-key="${note.charCodeAt(0)}"]`);
+        _playSound();
+      });
     }
-    if (!audio) return;
-
-    key.classList.add('playing');
-    audio.currentTime = 0;
-    audio.play();
   }
 
   function playScore() {
@@ -156,7 +172,8 @@
     let scoreParser = parser(scoreArray);
 
     scoreParser.forEach((key) => {
-      sleep(200);
+      sleep(400);
+      console.log(key);
       playSound(key);
     });
   }
@@ -166,9 +183,6 @@
     while (new Date().getTime() < start + delay) ;
   }
 
-  const keys = Array.from(document.querySelectorAll('.key'));
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-  window.addEventListener('keydown', playSound);
 </script>
 <script type="text/javascript" src="parser.js"></script>
 </body>
