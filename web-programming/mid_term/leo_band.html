@@ -149,7 +149,10 @@
     if (typeof (e) === "object") {
       audio = document.querySelector(`audio[data-key="${e.which}"]`);
       key = document.querySelector(`div[data-key="${e.which}"]`);
-      _playSound();
+      if (!audio) return;
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
     } else if (typeof (e) === "string" && e.length === 1) {
       e = e.toUpperCase();
       audio = document.querySelector(`audio[data-key="${e.charCodeAt(0)}"]`);
