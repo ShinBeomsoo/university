@@ -12,15 +12,15 @@
         <label for="piano-score" class="piano-score-label">피아노 악보: </label>
         <input id="piano-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
         <button onclick="playPianoScore()">연주하기</button>
-        <button onclick="repeatScore('piano')">반복하기</button>
-        <button onclick="repeatScore('stop')">멈추기</button>
+        <button class="repeat" onclick="repeatScore('piano')">반복하기</button>
+        <button class="stop">멈추기</button>
     </div>
     <div class="piano-score">
         <label for="drum-score" class="piano-score-label">드 럼 악보: </label>
         <input id="drum-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
         <button onclick="playDrumScore()">연주하기</button>
-        <button onclick="repeatScore('drum')">반복하기</button>
-        <button onclick="repeatScore('stop')">멈추기</button>
+        <button class="repeat" onclick="repeatScore('drum')">반복하기</button>
+        <button class="stop">멈추기</button>
     </div>
     <div class="keys">
         <div style="font-size: 25px; font-weight: bold; color: #ffffff">Piano kit:</div>
@@ -158,8 +158,21 @@
 
 <script>
   const keys = Array.from(document.querySelectorAll('.key'));
+  const stopBtn = document.querySelectorAll('.stop');
+  const repeatBtn = document.querySelectorAll('.repeat');
+  let isRepeat = true;
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
+  stopBtn.forEach(key => key.addEventListener('click', () => {
+    if (!isRepeat) {
+      isRepeat = true;
+    } else {
+      isRepeat = false;
+    }
+  }));
+  repeatBtn.forEach(key => key.addEventListener('click', () => {
+    isRepeat = true;
+  }));
 
   function removeTransition(e) {
     if (e.propertyName !== 'transform') return;
@@ -222,18 +235,13 @@
   }
 
   async function repeatScore(instrument) {
-    let count = 0;
     if (instrument === "piano") {
-      while (1) {
+      while (isRepeat) {
         await playPianoScore();
-        count++;
-        if (count === 20) {
-          break;
-        }
       }
     } else if (instrument === "drum") {
-      while (1) {
-
+      while (isRepeat) {
+        await playDrumScore();
       }
     }
   }
