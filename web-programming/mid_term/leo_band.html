@@ -8,12 +8,22 @@
 <body>
 <div>
     <div class="piano-score">
-        <h1>나의 악보</h1>
-        <label for="score">악보: </label><input id="score">
-        <button onclick="playScore()">play</button>
+        <p class="piano-score-p">악보</p>
+        <label for="piano-score" class="piano-score-label">피아노 악보: </label>
+        <input id="piano-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
+        <button onclick="playPianoScore()">연주하기</button>
+        <button onclick="repeatScore('piano')">반복하기</button>
+        <button onclick="repeatScore('stop')">멈추기</button>
+    </div>
+    <div class="piano-score">
+        <label for="drum-score" class="piano-score-label">드 럼 악보: </label>
+        <input id="drum-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
+        <button onclick="playDrumScore()">연주하기</button>
+        <button onclick="repeatScore('drum')">반복하기</button>
+        <button onclick="repeatScore('stop')">멈추기</button>
     </div>
     <div class="keys">
-        <div style="font-size: 25px; font-weight: bold">Piano kit:</div>
+        <div style="font-size: 25px; font-weight: bold; color: #ffffff">Piano kit:</div>
         <div data-key="65" class="key">
             <kbd>A</kbd>
             <span class="sound">do</span>
@@ -48,7 +58,7 @@
         </div>
     </div>
     <div class="keys">
-        <div style="font-size: 25px; font-weight: bold">Drum kit:</div>
+        <div style="font-size: 25px; font-weight: bold; color: #ffffff">Drum kit:</div>
         <div data-key="80" class="key">
             <kbd>P</kbd>
             <span class="sound">clap</span>
@@ -84,6 +94,28 @@
         <div data-key="77" class="key">
             <kbd>M</kbd>
             <span class="sound">tink</span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="metronome">
+            <div class="bpm-display">
+                <span class="tempo">140</span>
+                <span class="bpm">BPM</span>
+            </div>
+            <div class="tempo-text">Nice and steady</div>
+            <div class="tempo-settings">
+                <div class="adjust-tempo-btn decrease-tempo">-</div>
+                <input type="range" min="20" max="280" step="1" class="slider">
+                <div class="adjust-tempo-btn increase-tempo">+</div>
+            </div>
+            <div class="start-stop">START</div>
+            <div class="measures">
+                <div class="subtract-beats stepper">-</div>
+                <div class="measure-count" style="font-size: 20px">4</div>
+                <div class="add-beats stepper">+</div>
+            </div>
+            <span class="beats-per-measure-text">Beats per measure</span>
+
         </div>
     </div>
 </div>
@@ -165,16 +197,44 @@
     }
   }
 
-  async function playScore() {
-    let score = document.getElementById('score').value;
+  async function playPianoScore() {
+    let score = document.getElementById('piano-score').value;
     let scoreArray = score.split('');
 
     let scoreParser = parser(scoreArray);
 
     for (let key of scoreParser) {
-      sleep(400);
-      console.log(key);
+      sleep(200);
       await playSound(key);
+    }
+  }
+
+  async function playDrumScore() {
+    let score = document.getElementById('drum-score').value;
+    let scoreArray = score.split('');
+
+    let scoreParser = parser(scoreArray);
+
+    for (let key of scoreParser) {
+      sleep(200);
+      await playSound(key);
+    }
+  }
+
+  async function repeatScore(instrument) {
+    let count = 0;
+    if (instrument === "piano") {
+      while (1) {
+        await playPianoScore();
+        count++;
+        if (count === 20) {
+          break;
+        }
+      }
+    } else if (instrument === "drum") {
+      while (1) {
+
+      }
     }
   }
 
@@ -185,5 +245,6 @@
 
 </script>
 <script type="text/javascript" src="parser.js"></script>
+<script src="./app.js" type="module"></script>
 </body>
 </html>
