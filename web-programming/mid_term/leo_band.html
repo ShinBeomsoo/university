@@ -8,12 +8,12 @@
 <body>
 <div>
     <div class="piano-score">
-        <h1>score</h1>
-        <label for="score">label: </label><input id="score">
+        <h1>나의 악보</h1>
+        <label for="score">악보: </label><input id="score">
         <button onclick="playScore()">play</button>
     </div>
     <div class="keys">
-        <div style="font-size: 25px">Piano kit:</div>
+        <div style="font-size: 25px; font-weight: bold">Piano kit:</div>
         <div data-key="65" class="key">
             <kbd>A</kbd>
             <span class="sound">do</span>
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="keys">
-        <div style="font-size: 25px">Drum kit:</div>
+        <div style="font-size: 25px; font-weight: bold">Drum kit:</div>
         <div data-key="80" class="key">
             <kbd>P</kbd>
             <span class="sound">clap</span>
@@ -150,10 +150,12 @@
   }
 
   function playScore() {
-
     let score = document.getElementById('score').value;
     let scoreArray = score.split('');
-    scoreArray.forEach((key) => {
+
+    let scoreParser = parser(scoreArray);
+
+    scoreParser.forEach((key) => {
       sleep(200);
       playSound(key);
     });
@@ -168,5 +170,6 @@
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
   window.addEventListener('keydown', playSound);
 </script>
+<script type="text/javascript" src="parser.js"></script>
 </body>
 </html>
