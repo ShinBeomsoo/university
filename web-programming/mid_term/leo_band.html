@@ -6,24 +6,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div>
+<div style="margin-top: 50px;">
     <div class="piano-score">
         <p class="piano-score-p">악보</p>
         <label for="piano-score" class="piano-score-label">피아노 악보: </label>
-        <input id="piano-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
+        <input id="piano-score" style="width: 500px; height: 20px;" placeholder="알파벳을 입력해주세요.">
         <button onclick="playPianoScore()">연주하기</button>
         <button class="repeat" onclick="repeatScore('piano')">반복하기</button>
         <button class="stop">멈추기</button>
     </div>
     <div class="piano-score">
         <label for="drum-score" class="piano-score-label">드 럼 악보: </label>
-        <input id="drum-score" style="width: 300px; height: 20px;" placeholder="알파벳을 입력해주세요.">
+        <input id="drum-score" style="width: 500px; height: 20px;" placeholder="알파벳을 입력해주세요.">
         <button onclick="playDrumScore()">연주하기</button>
         <button class="repeat" onclick="repeatScore('drum')">반복하기</button>
         <button class="stop">멈추기</button>
     </div>
     <div class="keys">
-        <div style="font-size: 25px; font-weight: bold; color: #ffffff">Piano kit:</div>
+        <div style="font-size: 25px; font-weight: bold; color: #ffffff">피아노 :</div>
         <div data-key="65" class="key">
             <kbd>A</kbd>
             <span class="sound">do</span>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="keys">
-        <div style="font-size: 25px; font-weight: bold; color: #ffffff">Drum kit:</div>
+        <div style="font-size: 25px; font-weight: bold; color: #ffffff">드 럼 :</div>
         <div data-key="80" class="key">
             <kbd>P</kbd>
             <span class="sound">clap</span>
@@ -211,26 +211,36 @@
   }
 
   async function playPianoScore() {
+    const re = /[asdfgzxc]+/g;
     let score = document.getElementById('piano-score').value;
     let scoreArray = score.split('');
 
     let scoreParser = parser(scoreArray);
 
     for (let key of scoreParser) {
-      sleep(200);
-      await playSound(key);
+      if (key.match(re)) {
+        sleep(200);
+        await playSound(key);
+      } else {
+        sleep(200);
+      }
     }
   }
 
   async function playDrumScore() {
+    const re = /[puiojklnm]+/g;
     let score = document.getElementById('drum-score').value;
     let scoreArray = score.split('');
 
     let scoreParser = parser(scoreArray);
 
     for (let key of scoreParser) {
-      sleep(200);
-      await playSound(key);
+      if (key.match(re)) {
+        sleep(200);
+        await playSound(key);
+      } else {
+        sleep(200);
+      }
     }
   }
 
