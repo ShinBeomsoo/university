@@ -11,12 +11,12 @@ function Timer(callback, timeInterval, options) {
 
     this.timeout = setTimeout(this.round, this.timeInterval);
     console.log('Timer Started');
-  }
+  };
   this.stop = () => {
 
     clearTimeout(this.timeout);
     console.log('Timer Stopped');
-  }
+  };
   this.round = () => {
     console.log('timeout', this.timeout);
     let drift = Date.now() - this.expected;
