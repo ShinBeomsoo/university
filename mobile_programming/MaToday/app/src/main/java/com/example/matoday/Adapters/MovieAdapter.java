@@ -12,20 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.matoday.AddNewTask;
-import com.example.matoday.Model.BookModel;
+import com.example.matoday.Model.MovieModel;
 import com.example.matoday.MyMovie;
 import com.example.matoday.R;
 import com.example.matoday.Utils.DatabaseHandler;
+import com.example.matoday.Utils.DatabaseMovieHandler;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
-    private List<BookModel> todoList;
-    private DatabaseHandler db;
+    private List<MovieModel> todoList;
+    private DatabaseMovieHandler db;
     private MyMovie activity;
 
-    public MovieAdapter(DatabaseHandler db, MyMovie activity) {
+    public MovieAdapter(DatabaseMovieHandler db, MyMovie activity) {
         this.db = db;
         this.activity = activity;
     }
@@ -42,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final BookAdapter.ViewHolder holder, int position) {
         db.openDatabase();
 
-        final BookModel item = todoList.get(position);
+        final MovieModel item = todoList.get(position);
         holder.task.setText(item.getTask());
         holder.task.setChecked(toBoolean(item.getStatus()));
         holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -70,20 +71,20 @@ public class MovieAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         return activity;
     }
 
-    public void setTasks(List<BookModel> todoList) {
+    public void setTasks(List<MovieModel> todoList) {
         this.todoList = todoList;
         notifyDataSetChanged();
     }
 
     public void deleteItem(int position) {
-        BookModel item = todoList.get(position);
+        MovieModel item = todoList.get(position);
         db.deleteTask(item.getId());
         todoList.remove(position);
         notifyItemRemoved(position);
     }
 
     public void editItem(int position) {
-        BookModel item = todoList.get(position);
+        MovieModel item = todoList.get(position);
         Bundle bundle = new Bundle();
         bundle.putInt("id", item.getId());
         bundle.putString("task", item.getTask());

@@ -13,14 +13,13 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.matoday.Adapters.BookAdapter;
+import com.example.matoday.Adapters.MovieAdapter;
 
+public class RecycleMovieItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
-public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
+    private MovieAdapter adapter;
 
-    private BookAdapter adapter;
-
-    public RecyclerItemTouchHelper(BookAdapter adapter) {
+    public RecycleMovieItemTouchHelper(MovieAdapter adapter) {
         super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
