@@ -132,8 +132,6 @@
             android:layout_marginRight="8dp"
             android:visibility="invisible" />
 
-
-
     </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 

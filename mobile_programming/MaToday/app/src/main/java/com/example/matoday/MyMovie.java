@@ -1,6 +1,5 @@
 package com.example.matoday;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +10,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.matoday.Adapters.BookAdapter;
+import com.example.matoday.Model.BookModel;
+import com.example.matoday.Utils.DatabaseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MyMovie extends AppCompatActivity  {
+    private DatabaseHandler db;
+
+    private RecyclerView tasksRecyclerView;
+    private BookAdapter tasksAdapter;
+    private FloatingActionButton fab;
+
+    private List<BookModel> taskList;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -22,9 +36,8 @@ public class MyMovie extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);  //기본 제목을 없애줍니다.
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -41,20 +54,16 @@ public class MyMovie extends AppCompatActivity  {
             case R.id.calendar:
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                //select logout item
                 break;
             case R.id.movie:
                 intent = new Intent(getApplicationContext(), MyMovie.class);
                 startActivity(intent);
-                //select account item
                 break;
             case R.id.book:
                 intent = new Intent(getApplicationContext(), MyBook.class);
                 startActivity(intent);
                 break;
-            //select account item
             case android.R.id.home:
-                //select back button
                 finish();
                 break;
         }

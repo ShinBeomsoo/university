@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.getElevation();
         actionBar.setDisplayShowTitleEnabled(false);  //기본 제목을 없애줍니다.
-//        actionBar.setDisplayHomeAsUpEnabled(true);
 
         calendarView = findViewById(R.id.calendarView);
         diaryTextView = findViewById(R.id.diaryTextView);
@@ -94,20 +93,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.calendar:
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                //select logout item
                 break;
             case R.id.movie:
                 intent = new Intent(getApplicationContext(), MyMovie.class);
                 startActivity(intent);
-                //select account item
                 break;
             case R.id.book:
                 intent = new Intent(getApplicationContext(), MyBook.class);
                 startActivity(intent);
                 break;
-            //select account item
             case android.R.id.home:
-                //select back button
                 finish();
                 break;
         }

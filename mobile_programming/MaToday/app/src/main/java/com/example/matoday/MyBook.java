@@ -1,17 +1,38 @@
 package com.example.matoday;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MyBook extends AppCompatActivity  {
+import com.example.matoday.Adapters.BookAdapter;
+import com.example.matoday.Model.BookModel;
+import com.example.matoday.Utils.DatabaseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.Collections;
+import java.util.List;
+
+public class MyBook extends AppCompatActivity implements DialogCloseListener {
+    private DatabaseHandler db;
+
+    private RecyclerView tasksRecyclerView;
+    private BookAdapter tasksAdapter;
+    private FloatingActionButton fab;
+
+    private List<BookModel> taskList;
+
     @Override
     protected void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
@@ -20,9 +41,35 @@ public class MyBook extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);  //기본 제목을 없애줍니다.
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
+//        Objects.requireNonNull(getSupportActionBar()).hide();
+
+        db = new DatabaseHandler(this);
+        db.openDatabase();
+
+        tasksRecyclerView = findViewById(R.id.tasksRecyclerView);
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        tasksAdapter = new BookAdapter(db, MyBook.this);
+        tasksRecyclerView.setAdapter(tasksAdapter);
+
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
+        itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
+
+        fab = findViewById(R.id.fab);
+
+        taskList = db.getAllTasks();
+        Collections.reverse(taskList);
+
+        tasksAdapter.setTasks(taskList);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
+            }
+        });
     }
 
     @Override
@@ -39,23 +86,27 @@ public class MyBook extends AppCompatActivity  {
             case R.id.calendar:
                 intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                //select logout item
                 break;
             case R.id.movie:
                 intent = new Intent(getApplicationContext(), MyMovie.class);
                 startActivity(intent);
-                //select account item
                 break;
             case R.id.book:
                 intent = new Intent(getApplicationContext(), MyBook.class);
                 startActivity(intent);
                 break;
-            //select account item
             case android.R.id.home:
-                //select back button
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void handleDialogClose(DialogInterface dialog) {
+        taskList = db.getAllTasks();
+        Collections.reverse(taskList);
+        tasksAdapter.setTasks(taskList);
+        tasksAdapter.notifyDataSetChanged();
     }
 }
