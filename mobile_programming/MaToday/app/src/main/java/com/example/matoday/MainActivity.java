@@ -1,18 +1,20 @@
 package com.example.matoday;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
@@ -26,46 +28,18 @@ public class MainActivity extends AppCompatActivity {
     public Button cha_Btn, del_Btn, save_Btn;
     public TextView diaryTextView, textView2, textView3;
     public EditText contextEditText;
-    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = findViewById(R.id.home_spinner);
-        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(
-                this, R.array.spinner, android.R.layout.simple_spinner_dropdown_item
-        );
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                System.out.println(position);
-                final Intent intent;
-                switch (position) {
-                    case 1:
-                        intent = new Intent(getApplicationContext(), MyMovie.class);
-                        intent.putExtra("화면", 0);
-                        startActivity(intent);
-                        break;
-                    case 2:
-                        intent = new Intent(getApplicationContext(), MyBook.class);
-                        intent.putExtra("화면", 0);
-                        startActivity(intent);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                System.out.println("아무것도 선택된 것이 없습니다.");
-            }
-        });
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);  //기본 제목을 없애줍니다.
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         calendarView = findViewById(R.id.calendarView);
         diaryTextView = findViewById(R.id.diaryTextView);
@@ -103,6 +77,40 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.calendar:
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                //select logout item
+                break;
+            case R.id.movie:
+                intent = new Intent(getApplicationContext(), MyMovie.class);
+                startActivity(intent);
+                //select account item
+                break;
+            case R.id.book:
+                intent = new Intent(getApplicationContext(), MyBook.class);
+                startActivity(intent);
+                break;
+            //select account item
+            case android.R.id.home:
+                //select back button
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void checkDay(int cYear, int cMonth, int cDay, String userID) {
